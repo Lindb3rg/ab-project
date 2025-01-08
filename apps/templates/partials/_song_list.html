@@ -1,0 +1,41 @@
+
+
+        <thead>
+            <tr>
+                <th class="border-gray-200">ID</th>
+                <th class="border-gray-200">Name</th>						
+                <th class="border-gray-200">Starting Date</th>
+                <th class="border-gray-200">Duration</th>
+                <th class="border-gray-200">Status</th>
+            </tr>
+        </thead>
+        <tbody id="songs-list">
+        {% for song in pagination %}
+        <tr hx-get="{% url 'edit_song' song.id %}" hx-target="#editSong">
+            <td><a href="#" class="fw-bold">{{ song.id }}</a></td>
+            <td><span class="fw-normal">{{ song.name|default:"No Name" }}</span></td>
+            <td><span class="fw-normal">{{ song.starting_date|default:"No Starting Date" }}</span></td>
+            <td><span class="fw-normal">{{ song.duration_display|default:"No Duration" }}</span></td>
+            {% if song.status != "FINISHED" %}
+            <td><span class="fw-normal text-info">{{ song.status|default:"No Status" }}</span></td>
+            {% else %}
+            <td><span class="fw-normal text-success">{{ song.status|default:"No Status" }}</span></td>
+            {% endif %}
+    </tr>
+    {% empty %}
+    <tr>
+        <!-- Adjust the colspan to cover all columns (ID, Name, Starting Date, Duration, Status, Actions) -->
+        <td colspan="6" class="text-center">No songs found.</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+
+    <div id="editSongModal" class="modal fade" tabindex="-1">
+        <div id="editSong" class="modal-dialog modal-dialog-centered" hx-target="this"></div>
+    </div>
+
+
+
+
+
+

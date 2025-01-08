@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from django.db import models
+from . import db_seeder
 
 
 class Song(models.Model):
@@ -31,17 +32,6 @@ class Song(models.Model):
 
 
 
-from datetime import datetime, timedelta
-from apps.home.models import Song  # Adjust 'home' to your app name if different
+# db_seeder.create_db_objects(20)
+# Song.objects.all().delete()
 
-# Create 20 Song objects
-for i in range(1, 21):
-    Song.objects.create(
-        name=f"Song {i}",
-        starting_date=datetime.now(),
-        duration=timedelta(minutes=i),
-        status="WRITING",
-        notes=f"This is the notes for song number {i}"
-    )
-
-print("20 songs have been created!")
